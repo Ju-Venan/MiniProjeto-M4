@@ -3,14 +3,15 @@ const cors = require("cors");
 const app = express();
 const areaRoutes = require("./routes/area.routes");
 
-app.use(cors({
-  origin: "http://localhost:3000"
-}));
+const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:3000";
+const PORT = process.env.PORT || 3001;
+
+app.use(cors({ origin: corsOrigin }));
 
 app.use(express.json());
 
 app.use("/areas", areaRoutes);
 
-app.listen(3001, () => {
-  console.log("Servidor rodando na porta 3001");
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
